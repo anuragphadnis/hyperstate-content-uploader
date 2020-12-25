@@ -1,15 +1,19 @@
 import express from 'express';
 import FileController from '../controllers/file.controller';
+import convertImageJob from '../services/convert.image.job.service';
 
 const router = express.Router();
 
-router.post('/', FileController.upload.any('files'), (req, res) => {
+router.post('/', FileController.upload.any('files'), async (req, res) => {
   try {
     if (req.error) {
       return res.status(402).send({
         error: `Error: ${req.error}`,
       });
     }
+
+    await convertImageJob.add(req.uploadedFiles);
+
     return res.status(201).send({
       files: req.uploadedFiles,
     });
