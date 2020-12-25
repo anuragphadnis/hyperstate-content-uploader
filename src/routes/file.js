@@ -3,7 +3,7 @@ import * as FileController from '../controllers/file.controller';
 
 const router = express.Router();
 
-router.post('/', FileController.upload.single('file'), (req, res) => {
+router.post('/', FileController.upload.any('files'), (req, res) => {
   try {
     console.log(FileController);
     res.send('done');
