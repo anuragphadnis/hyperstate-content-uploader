@@ -4,6 +4,7 @@
   "description": "Backend assignment for hyperstate",
   "main": "index.js",
   "scripts": {
+    "build": "npx babel src --out-dir dist/src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Anurag Phadnis",
@@ -12,6 +13,9 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "eslint": "^7.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
@@ -23,5 +27,4 @@
       "pre-push": "npx eslint ."
     }
   }
-
 }
