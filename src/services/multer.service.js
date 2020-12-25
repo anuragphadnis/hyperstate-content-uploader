@@ -1,9 +1,9 @@
 import multer from 'multer';
 import config from '../config/config';
+import fileFormatValidator from '../validators/file.format.validator';
 
 const storage = multer.diskStorage({
   destination(request, file, callback) {
-    console.log(config.DEFAULT_UPLOAD_DIR);
     callback(null, config.DEFAULT_UPLOAD_DIR);
   },
 
@@ -18,6 +18,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
+  fileFilter: fileFormatValidator.validateFileFormat,
 });
 
 export default upload;
