@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
   },
 
   filename(request, file, callback) {
-    const fileFormat = fileUtils.findFileFormat(file);
+    const fileFormat = fileUtils.findFileFormat(file.originalname);
     const filename = `${Date.now()}.${fileFormat}`;
     if (!request.uploadedFiles) {
       request.uploadedFiles = [];

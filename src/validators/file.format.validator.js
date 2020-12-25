@@ -19,7 +19,7 @@ const isValidVideoFormat = (file) => {
 };
 
 const validateFileFormat = (req, file, cb) => {
-  if (isValidImageFormat(file) || isValidVideoFormat(file)) {
+  if (isValidImageFormat(file.originalname) || isValidVideoFormat(file.originalname)) {
     return cb(null, true);
   }
   req.error = 'Not a valid file';

@@ -1,7 +1,7 @@
 import path from 'path';
 
 const findFileFormat = (file) => {
-  const fileFormat = file.originalname.slice(file.originalname.lastIndexOf('.') + 1);
+  const fileFormat = file.substr(file.lastIndexOf('.') + 1);
   return fileFormat.toLowerCase();
 };
 
