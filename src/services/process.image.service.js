@@ -1,4 +1,8 @@
+import path from 'path';
 import sharpService from './sharp.service';
+import config from '../config/config';
+import resizeService from './resize.job.service';
+import fileUtils from '../utils/file.utils';
 
 const processImage = async (fileName, processes) => {
   try {
@@ -10,27 +14,30 @@ const processImage = async (fileName, processes) => {
   }
 };
 
-const convertToPng = async (file) => { await sharpService.convertToPng(file); };
+const convertToPng = async (file) => {
+  await sharpService.convertToPng(file, path.join(config.UPLOAD_DIR, 'png'));
+  resizeService.add(
+    `${path.join(config.UPLOAD_DIR, 'png', fileUtils.findFileName(file))}.png`,
+  );
+};
 
-const convertToJpeg = async (file) => { await sharpService.convertToJpeg(file); };
+const convertToJpeg = async (file) => {
+  await sharpService.convertToJpeg(file, path.join(config.UPLOAD_DIR, 'jpeg'));
+  resizeService.add(
+    `${path.join(config.UPLOAD_DIR, 'jpeg', fileUtils.findFileName(file))}.jpeg`,
+  );
+};
 
-const convertToWebp = async (file) => { await sharpService.convertToWebp(file); };
-
-const convertTo360p = async (file) => { await sharpService.convertTo360p(file); };
-
-const convertTo480p = async (file) => { await sharpService.convertTo480p(file); };
-
-const convertTo720p = async (file) => { await sharpService.convertTo720p(file); };
-
-const convertTo1080p = async (file) => { await sharpService.convertTo1080p(file); };
+const convertToWebp = async (file) => {
+  await sharpService.convertToWebp(file, path.join(config.UPLOAD_DIR, 'webp'));
+  resizeService.add(
+    `${path.join(config.UPLOAD_DIR, 'webp', fileUtils.findFileName(file))}.webp`,
+  );
+};
 
 export default {
   processImage,
   convertToPng,
   convertToJpeg,
   convertToWebp,
-  convertTo360p,
-  convertTo480p,
-  convertTo720p,
-  convertTo1080p,
 };
