@@ -12,7 +12,7 @@ router.post('/', FileController.upload.any('files'), async (req, res) => {
       });
     }
 
-    await jobService.add(req.uploadedFiles);
+    await jobService.formattingQueue.add(req.uploadedFiles);
 
     return res.status(201).send({
       files: req.uploadedFiles,

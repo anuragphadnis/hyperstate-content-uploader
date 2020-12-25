@@ -6,39 +6,56 @@ import fileUtils from '../utils/file.utils';
 
 const validFormats = ['jpeg', 'png', 'webp'];
 
-const convertImage = async (file, toFormat) => {
+const convertImage = async (file, uploadDir, toFormat) => {
   if (validFormats.indexOf(toFormat) < 0) {
     return new Error(`Unable to convert Image: ${file} to format: ${toFormat}`);
   }
   try {
     return await sharp(file)
-      .toFile(`${path.resolve(config.DEFAULT_UPLOAD_DIR, toFormat, fileUtils.findFileName(file))}.${toFormat}`);
+      .toFile(`${path.resolve(uploadDir, toFormat, fileUtils.findFileName(file))}.${toFormat}`);
   } catch (error) {
     console.error(`Error occured while converting image ${file} to ${toFormat}, error: ${error}`);
     return new Error(`Error occured while converting image ${file} to ${toFormat}, error: ${error}`);
   }
 };
 
-const convertToPng = async (file) => { await convertImage(file, 'png'); };
+const resizeImage = async (file, uploadDir, width, height) => {
+  try {
+    return await sharp(file)
+      .resize(width, height)
+      .toFile(`${path.resolve(uploadDir, fileUtils.findFileName(file))}.${fileUtils.findFileFormat(file)}`);
+  } catch (error) {
+    console.error(`Error occured while resizing image ${file} to ${width}*${height}, error: ${error}`);
+    return new Error(`Error occured while resizing image ${file} to ${width}*${height}, error: ${error}`);
+  }
+};
 
-const convertToJpeg = async (file) => { await convertImage(file, 'jpeg'); };
+const convertToPng = async (file) => {
+  await convertImage(file, config.DEFAULT_UPLOAD_DIR, 'png');
+};
 
-const convertToWebp = async (file) => { await convertImage(file, 'webp'); };
+const convertToJpeg = async (file) => {
+  await convertImage(file, config.DEFAULT_UPLOAD_DIR, 'jpeg');
+};
 
-// TODO implement
+const convertToWebp = async (file) => {
+  await convertImage(file, config.DEFAULT_UPLOAD_DIR, 'webp');
+};
+
 const convertTo360p = async (file) => {
+  await resizeImage(file, path.join(config.DEFAULT_UPLOAD_DIR, '360p'), 480, 360);
 };
 
-// TODO implement
 const convertTo480p = async (file) => {
+  await resizeImage(file, path.join(config.DEFAULT_UPLOAD_DIR, '480p'), 858, 480);
 };
 
-// TODO implement
 const convertTo720p = async (file) => {
+  await resizeImage(file, path.join(config.DEFAULT_UPLOAD_DIR, '720p'), 1280, 720);
 };
 
-// TODO implement
 const convertTo1080p = async (file) => {
+  await resizeImage(file, path.join(config.DEFAULT_UPLOAD_DIR, '1080p'), 1920, 1080);
 };
 
 export default {
