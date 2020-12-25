@@ -1,6 +1,6 @@
 import Bull from 'bull';
 import path from 'path';
-import processImageService from './process.image.service';
+import processImageService from './convert.image.service';
 import config from '../config/config';
 
 const formattingQueue = new Bull('formattingQueue');
