@@ -5,7 +5,7 @@ import fileUtils from '../utils/file.utils';
 
 const storage = multer.diskStorage({
   destination(request, file, callback) {
-    callback(null, config.DEFAULT_UPLOAD_DIR);
+    callback(null, config.UPLOAD_DIR);
   },
 
   filename(request, file, callback) {

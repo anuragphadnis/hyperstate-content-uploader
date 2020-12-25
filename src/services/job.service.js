@@ -18,7 +18,7 @@ formattingQueue.process(async (job) => {
   try {
     console.log(`Started to process converting of Image: ${job.data.fileName}`);
     await processImageService.processImage(
-      path.join(config.DEFAULT_UPLOAD_DIR, job.data.fileName), [processImageService.convertToPng,
+      path.join(config.UPLOAD_DIR, job.data.fileName), [processImageService.convertToPng,
         processImageService.convertToJpeg,
         processImageService.convertToWebp,
       ],
@@ -41,7 +41,7 @@ resizingQueue.process(async (job) => {
   try {
     console.log(`Started to process resizing Image: ${job.data.fileName}`);
     await processImageService.processImage(
-      path.join(config.DEFAULT_UPLOAD_DIR, job.data.fileName), [processImageService.convertTo360p,
+      path.join(config.UPLOAD_DIR, job.data.fileName), [processImageService.convertTo360p,
         processImageService.convertTo480p,
         processImageService.convertTo720p,
         processImageService.convertTo1080p,
