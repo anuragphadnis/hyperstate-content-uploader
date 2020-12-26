@@ -16,23 +16,26 @@ const processImage = async (fileName, processes) => {
 
 const convertToPng = async (file) => {
   await sharpService.convertToPng(file, path.join(config.UPLOAD_DIR, 'png'));
-  resizeService.add(
-    `${path.join(config.UPLOAD_DIR, 'png', fileUtils.findFileName(file))}.png`,
-  );
+  resizeService.add({
+    fileName: `${path.join(config.UPLOAD_DIR, 'png', fileUtils.findFileName(file))}.png`,
+    originalFileName: file,
+  });
 };
 
 const convertToJpeg = async (file) => {
   await sharpService.convertToJpeg(file, path.join(config.UPLOAD_DIR, 'jpeg'));
-  resizeService.add(
-    `${path.join(config.UPLOAD_DIR, 'jpeg', fileUtils.findFileName(file))}.jpeg`,
-  );
+  resizeService.add({
+    fileName: `${path.join(config.UPLOAD_DIR, 'jpeg', fileUtils.findFileName(file))}.jpeg`,
+    originalFileName: file,
+  });
 };
 
 const convertToWebp = async (file) => {
   await sharpService.convertToWebp(file, path.join(config.UPLOAD_DIR, 'webp'));
-  resizeService.add(
-    `${path.join(config.UPLOAD_DIR, 'webp', fileUtils.findFileName(file))}.webp`,
-  );
+  resizeService.add({
+    fileName: `${path.join(config.UPLOAD_DIR, 'webp', fileUtils.findFileName(file))}.webp`,
+    originalFileName: file,
+  });
 };
 
 export default {
