@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
   }
   return dbService.getStatus(req.body.fileName, (error, processingStatus) => {
     if (processingStatus == null || error) {
-      return res.status(402).send({ error: `No image with name ${req.body.fileName} exists` });
+      return res.status(404).send({ error: `No image with name ${req.body.fileName} exists` });
     }
     if (error != null) {
       return res.status(500).send({ error: `Generic error occured: ${error}` });
@@ -59,7 +59,7 @@ router.delete('/', (req, res) => {
   }
   return dbService.getStatus(req.body.fileName, (error, processingStatus) => {
     if (processingStatus == null || error) {
-      return res.status(402).send({ error: `No image with name ${req.body.fileName} exists` });
+      return res.status(404).send({ error: `No image with name ${req.body.fileName} exists` });
     }
     if (error != null) {
       return res.status(500).send({ error: `Generic error occured: ${error}` });
@@ -75,7 +75,7 @@ router.get('/status', (req, res) => {
   }
   return dbService.getStatus(req.body.fileName, (error, processingStatus) => {
     if (processingStatus == null || error) {
-      return res.status(402).send({ error: `No image with name ${req.body.fileName} exists` });
+      return res.status(404).send({ error: `No image with name ${req.body.fileName} exists` });
     }
     if (error != null) {
       return res.status(500).send({ error: `Generic error occured: ${error}` });
