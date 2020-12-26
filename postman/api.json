@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "5075430c-5794-4c3f-a66a-a6dd8bc91e79",
+		"name": "hyperstate-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Upload file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/HP/Pictures/Image 1.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/file",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file"
+					],
+					"query": [
+						{
+							"key": "files",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get uploaded file",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fileName\": \"1608958161035.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/file",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file"
+					],
+					"query": [
+						{
+							"key": "file",
+							"value": "1608958161035.jpg",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete File",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fileName\": \"1608958161035.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/file",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get processing status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fileName\": \"1608958313165.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/file/status",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"file",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
