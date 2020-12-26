@@ -17,19 +17,23 @@ router.post('/', fileController.upload.any('files'), async (req, res) => {
       });
     }
 
+    if (req.uploadedFiles == null) {
+      return res.status(402).send({
+        error: 'Invalid file: failed to upload',
+      });
+    }
+
     req.uploadedFiles.forEach((file) => {
-      console.log(file);
       dbService.setStatus(file, 'uploaded');
     });
 
     await convertImageJob.add(req.uploadedFiles);
-
     return res.status(201).send({
       files: req.uploadedFiles,
     });
   } catch (error) {
-    console.log(`Error: ${error}`);
-    return res.send('ERROR');
+    console.log(`Generic error: ${error}`);
+    return res.send('Generic error occured while uploading file');
   }
 });
 
@@ -39,7 +43,7 @@ router.get('/', (req, res) => {
   }
   return dbService.getStatus(req.body.fileName, (error, processingStatus) => {
     if (processingStatus == null || error) {
-      return res.status(402).send({ error: `No image with name ${req.body.fileName} exists` });
+      return res.status(404).send({ error: `No image with name ${req.body.fileName} exists` });
     }
     if (error != null) {
       return res.status(500).send({ error: `Generic error occured: ${error}` });
@@ -55,7 +59,7 @@ router.delete('/', (req, res) => {
   }
   return dbService.getStatus(req.body.fileName, (error, processingStatus) => {
     if (processingStatus == null || error) {
-      return res.status(402).send({ error: `No image with name ${req.body.fileName} exists` });
+      return res.status(404).send({ error: `No image with name ${req.body.fileName} exists` });
     }
     if (error != null) {
       return res.status(500).send({ error: `Generic error occured: ${error}` });
@@ -71,7 +75,7 @@ router.get('/status', (req, res) => {
   }
   return dbService.getStatus(req.body.fileName, (error, processingStatus) => {
     if (processingStatus == null || error) {
-      return res.status(402).send({ error: `No image with name ${req.body.fileName} exists` });
+      return res.status(404).send({ error: `No image with name ${req.body.fileName} exists` });
     }
     if (error != null) {
       return res.status(500).send({ error: `Generic error occured: ${error}` });

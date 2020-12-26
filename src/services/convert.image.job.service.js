@@ -4,14 +4,17 @@ import processImageService from './convert.image.service';
 import config from '../config/config';
 import dbService from './db.service';
 import fileUtils from '../utils/file.utils';
+import fileFormatValidator from '../validators/file.format.validator';
 
 const formattingQueue = new Bull('formattingQueue');
 
 const addToFormattingQueue = async (files) => {
   files.forEach(async (file) => {
-    await formattingQueue.add({
-      fileName: file,
-    });
+    if (fileFormatValidator.isValidImageFormat(file)) {
+      await formattingQueue.add({
+        fileName: file,
+      });
+    }
   });
 };
 
