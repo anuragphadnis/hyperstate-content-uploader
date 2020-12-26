@@ -1,8 +1,11 @@
 import express from 'express';
 import FileController from '../controllers/file.controller';
 import convertImageJob from '../services/convert.image.job.service';
+import dbService from '../services/db.service';
 
 const router = express.Router();
+
+router.use(express.json());
 
 router.post('/', FileController.upload.any('files'), async (req, res) => {
   try {
@@ -11,6 +14,11 @@ router.post('/', FileController.upload.any('files'), async (req, res) => {
         error: `Error: ${req.error}`,
       });
     }
+
+    req.uploadedFiles.forEach((file) => {
+      console.log(file);
+      dbService.setStatus(file, 'uploaded');
+    });
 
     await convertImageJob.add(req.uploadedFiles);
 
@@ -21,6 +29,22 @@ router.post('/', FileController.upload.any('files'), async (req, res) => {
     console.log(`Error: ${error}`);
     return res.send('ERROR');
   }
+});
+
+router.get('/status', (req, res) => {
+  if (!req.body.fileName) {
+    return res.status(402).send({ error: 'No image name given' });
+  }
+  return dbService.getStatus(req.body.fileName, (error, processingStatus) => {
+    if (processingStatus == null || error) {
+      return res.status(402).send({ error: `No image with name ${req.body.fileName} exists` });
+    }
+    if (error != null) {
+      return res.status(500).send({ error: `Generic error occured: ${error}` });
+    }
+
+    return res.status(200).send({ status: processingStatus });
+  });
 });
 
 export default router;

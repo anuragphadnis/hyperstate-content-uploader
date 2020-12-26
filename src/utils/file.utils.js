@@ -11,7 +11,10 @@ const findFileName = (file) => {
   return fileName.substr(0, fileName.lastIndexOf('.'));
 };
 
+const getFileNameWithFormat = (file) => `${findFileName(file)}.${findFileFormat(file)}`;
+
 export default {
   findFileFormat,
   findFileName,
+  getFileNameWithFormat,
 };
