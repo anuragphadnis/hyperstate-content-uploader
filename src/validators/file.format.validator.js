@@ -28,4 +28,6 @@ const validateFileFormat = (req, file, cb) => {
 
 export default {
   validateFileFormat,
+  isValidImageFormat,
+  isValidVideoFormat,
 };
