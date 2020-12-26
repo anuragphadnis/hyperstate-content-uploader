@@ -14,7 +14,12 @@ const getStatus = (key, cb) => {
   client.get(key, cb);
 };
 
+const deleteStatus = (key) => {
+  client.del(key);
+};
+
 export default {
   getStatus,
   setStatus,
+  deleteStatus,
 };
