@@ -21,10 +21,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  fileFilter: fileFormatValidator.validateFileFormat,
   limits: {
     fileSize: config.MAX_FILE_SIZE,
   },
+  fileFilter: fileFormatValidator.validateFileFormat,
 });
 
 export default upload;
